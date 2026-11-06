@@ -8,11 +8,11 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.mt.chat.nativeai"
+        applicationId = "MT.LTZS.com"
         minSdk = 21
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 100000
+        versionName = "3.3.1"
     }
 
     buildTypes {
