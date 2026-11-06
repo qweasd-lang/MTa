@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
 
         model = prefs.getString("model", Models.DEFAULT) ?: Models.DEFAULT
         if (Models.all.none { it.id == model }) model = Models.DEFAULT
-        temperature = prefs.getFloat("temp", 0.7f).toDouble()
+        temperature = Math.round(prefs.getFloat("temp", 0.7f) * 10f) / 10.0
 
         store = ChatStore(this)
         store.load()
@@ -124,6 +124,11 @@ class MainActivity : AppCompatActivity() {
             pendingImage = null; imgBar.visibility = View.GONE
         }
         sendBtn.setOnClickListener { send() }
+        etInput.setOnKeyListener { _, keyCode, event ->
+            if (event.action == android.view.KeyEvent.ACTION_DOWN && keyCode == android.view.KeyEvent.KEYCODE_ENTER) {
+                if (!event.isShiftPressed) { send(); true } else false
+            } else false
+        }
         findViewById<TextView>(R.id.tvTitle).setOnClickListener {
             ModelPickerDialog(this, model) { id -> applyModel(id) }.show()
         }
@@ -351,7 +356,7 @@ class MainActivity : AppCompatActivity() {
 
         v.findViewById<MaterialButton>(R.id.btnCancel).setOnClickListener { dlg.dismiss() }
         v.findViewById<MaterialButton>(R.id.btnSave).setOnClickListener {
-            prefs.edit().putFloat("temp", temperature.toFloat()).apply()
+            prefs.edit().putFloat("temp", (Math.round(temperature * 10.0) / 10.0).toFloat()).apply()
             dlg.dismiss()
             toast("设置已更新")
         }

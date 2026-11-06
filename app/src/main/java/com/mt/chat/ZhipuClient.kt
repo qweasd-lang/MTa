@@ -37,7 +37,7 @@ object ZhipuClient {
             try {
                 val body = JSONObject()
                 body.put("model", model)
-                body.put("temperature", temperature)
+                body.put("temperature", Math.round(temperature * 100.0) / 100.0)
                 body.put("messages", messages)
 
                 conn = (URL(ENDPOINT).openConnection() as HttpURLConnection).apply {

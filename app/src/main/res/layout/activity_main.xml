@@ -1,11 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@drawable/bg_app"
     android:fitsSystemWindows="true">
+
+    <com.mt.chat.ParticleView
+        android:id="@+id/particles"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +24,8 @@
         android:paddingStart="6dp"
         android:paddingEnd="6dp"
         android:paddingTop="4dp"
-        android:paddingBottom="4dp">
+        android:paddingBottom="4dp"
+        android:background="#B30B1020">
 
         <TextView
             android:id="@+id/btnMenu"
@@ -243,7 +253,7 @@
             android:layout_marginStart="4dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/bg_input"
-            android:hint="输入消息…"
+            android:hint="输入消息…(Enter 发送 / Shift+Enter 换行)"
             android:textColorHint="@color/sub"
             android:textColor="@color/text"
             android:textSize="15sp"
@@ -318,3 +328,4 @@
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
+</FrameLayout>
