@@ -16,316 +16,692 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:paddingStart="6dp"
-        android:paddingEnd="6dp"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:background="#B30B1020">
-
-        <TextView
-            android:id="@+id/btnMenu"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            android:gravity="center"
-            android:text="☰"
-            android:textSize="20sp"
-            android:textColor="@color/text"
-            android:background="?attr/selectableItemBackgroundBorderless" />
-
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="MT聊天助手"
-            android:textColor="@color/text"
-            android:textStyle="bold"
-            android:textSize="17sp" />
-
-        <TextView
-            android:id="@+id/btnTrans"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            android:gravity="center"
-            android:text="🌐"
-            android:textSize="17sp"
-            android:background="?attr/selectableItemBackgroundBorderless" />
-
-        <TextView
-            android:id="@+id/btnSet"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            android:gravity="center"
-            android:text="⚙️"
-            android:textSize="17sp"
-            android:background="?attr/selectableItemBackgroundBorderless" />
-    </LinearLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp" />
-
         <LinearLayout
-            android:id="@+id/welcomePane"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="24dp">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:background="#B30B1020">
 
             <TextView
-                android:id="@+id/tvWelcomeTitle"
-                android:layout_width="wrap_content"
+                android:id="@+id/btnMenu"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:gravity="center"
+                android:text="☰"
+                android:textSize="20sp"
+                android:textColor="@color/text"
+                android:background="?attr/selectableItemBackgroundBorderless" />
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="MT聊天助手"
-                android:textColor="#FFFFFF"
-                android:textSize="28sp"
-                android:textStyle="bold" />
+                android:textColor="@color/text"
+                android:textStyle="bold"
+                android:textSize="17sp" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="我是你的智能 AI 助手，请问有什么可以帮助你的？"
-                android:textColor="@color/sub"
-                android:textSize="14sp"
-                android:gravity="center" />
+                android:id="@+id/btnTrans"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:gravity="center"
+                android:text="🌐"
+                android:textSize="17sp"
+                android:background="?attr/selectableItemBackgroundBorderless" />
+
+            <TextView
+                android:id="@+id/btnSet"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:gravity="center"
+                android:text="⚙️"
+                android:textSize="17sp"
+                android:background="?attr/selectableItemBackgroundBorderless" />
         </LinearLayout>
 
-        <ScrollView
-            android:id="@+id/mePane"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone">
+            android:layout_height="1dp"
+            android:background="#2A3A66" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp" />
 
             <LinearLayout
+                android:id="@+id/welcomePane"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:gravity="center"
+                android:padding="24dp">
+
+                <TextView
+                    android:id="@+id/tvWelcomeTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="MT聊天助手"
+                    android:textColor="#FFFFFF"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="我是你的智能 AI 助手，请问有什么可以帮助你的？"
+                    android:textColor="@color/sub"
+                    android:textSize="14sp"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <ScrollView
+                android:id="@+id/mePane"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:gravity="center"
-                    android:paddingTop="24dp"
-                    android:paddingBottom="18dp">
+                    android:padding="16dp">
 
-                    <TextView
-                        android:layout_width="64dp"
-                        android:layout_height="64dp"
-                        android:background="@drawable/bg_avatar_user"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
                         android:gravity="center"
-                        android:text="我"
-                        android:textColor="#FFFFFF"
-                        android:textSize="24sp"
-                        android:textStyle="bold" />
+                        android:paddingTop="24dp"
+                        android:paddingBottom="6dp">
+
+                        <TextView
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:background="@drawable/bg_avatar_user"
+                            android:gravity="center"
+                            android:text="我"
+                            android:textColor="#FFFFFF"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvMePhone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:textColor="@color/text"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:text="MT 聊天助手 · 版本 3.3.1"
+                            android:textColor="@color/sub"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/meAccount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_me_item"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="14dp">
 
                     <TextView
-                        android:id="@+id/tvMeModel"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:gravity="center"
+                        android:text="🔐"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="账号与安全"
+                            android:textColor="@color/text"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/meAccountDesc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="手机号：未绑定"
+                            android:textColor="@color/sub"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:textColor="@color/text"
-                        android:textSize="14sp" />
+                        android:text="›"
+                        android:textColor="@color/sub"
+                        android:textSize="16sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/meInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_me_item"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="14dp">
+
+                    <TextView
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:gravity="center"
+                        android:text="🔔"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="信息"
+                            android:textColor="@color/text"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/meInfoDesc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="暂无新通知"
+                            android:textColor="@color/sub"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="›"
+                        android:textColor="@color/sub"
+                        android:textSize="16sp" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/meSetPwd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_me_item"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="14dp">
+
+                    <TextView
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:gravity="center"
+                        android:text="🔑"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="设置密码"
+                            android:textColor="@color/text"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/meSetPwdDesc"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="尚未设置密码"
+                            android:textColor="@color/sub"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="›"
+                        android:textColor="@color/sub"
+                        android:textSize="16sp" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/meModel"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_me_item"
-                    android:padding="14dp"
-                    android:text="🤖  模型与温度"
-                    android:textColor="@color/text"
-                    android:textSize="14sp" />
+                    <LinearLayout
+                        android:id="@+id/meWx"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_me_item"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="14dp">
 
-                <TextView
-                    android:id="@+id/meWx"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/bg_me_item"
-                    android:padding="14dp"
-                    android:text="💬  加微信反馈"
-                    android:textColor="@color/text"
-                    android:textSize="14sp" />
+                        <TextView
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:gravity="center"
+                            android:text="💬"
+                            android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/meSp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/bg_me_item"
-                    android:padding="14dp"
-                    android:text="☕  赞助支持"
-                    android:textColor="@color/text"
-                    android:textSize="14sp" />
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/meAbout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/bg_me_item"
-                    android:padding="14dp"
-                    android:text="ℹ️  关于"
-                    android:textColor="@color/text"
-                    android:textSize="14sp" />
-            </LinearLayout>
-        </ScrollView>
-    </FrameLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="加微信反馈"
+                                android:textColor="@color/text"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
 
-    <LinearLayout
-        android:id="@+id/imgBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:visibility="gone"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        android:paddingBottom="4dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="遇到 BUG 或有建议？加微信直接反馈"
+                                android:textColor="@color/sub"
+                                android:textSize="11sp" />
+                        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imgPreview"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:scaleType="centerCrop" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="›"
+                            android:textColor="@color/sub"
+                            android:textSize="16sp" />
+                    </LinearLayout>
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="10dp"
-            android:text="待发送图片（≤2400×1080）"
-            android:textColor="@color/sub"
-            android:textSize="12sp" />
+                    <LinearLayout
+                        android:id="@+id/meSp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_me_item"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="14dp">
 
-        <TextView
-            android:id="@+id/btnClearImg"
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:gravity="center"
-            android:text="✕"
-            android:textSize="15sp"
-            android:textColor="@color/danger"
-            android:background="?attr/selectableItemBackgroundBorderless" />
-    </LinearLayout>
+                        <TextView
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:gravity="center"
+                            android:text="☕"
+                            android:textSize="16sp" />
 
-    <LinearLayout
-        android:id="@+id/inputBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="bottom"
-        android:padding="8dp">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/btnImg"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:gravity="center"
-            android:text="🖼️"
-            android:textSize="19sp"
-            android:background="?attr/selectableItemBackgroundBorderless" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="赞助支持"
+                                android:textColor="@color/text"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/etInput"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/bg_input"
-            android:hint="输入消息…(Enter 发送 / Shift+Enter 换行)"
-            android:textColorHint="@color/sub"
-            android:textColor="@color/text"
-            android:textSize="15sp"
-            android:padding="12dp"
-            android:minHeight="44dp"
-            android:maxLines="5"
-            android:inputType="textMultiLine|textCapSentences" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="扫码赞赏，支持开发者持续维护"
+                                android:textColor="@color/sub"
+                                android:textSize="11sp" />
+                        </LinearLayout>
 
-        <TextView
-            android:id="@+id/btnSend"
-            android:layout_width="72dp"
-            android:layout_height="44dp"
-            android:background="@drawable/bg_send"
-            android:gravity="center"
-            android:text="发送"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="›"
+                            android:textColor="@color/sub"
+                            android:textSize="16sp" />
+                    </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/tabbar"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:orientation="horizontal"
-        android:background="@drawable/bg_tabbar"
-        android:padding="6dp">
+                    <LinearLayout
+                        android:id="@+id/meLogout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/bg_me_item"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="14dp">
 
-        <LinearLayout
-            android:id="@+id/tabMsg"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="@drawable/bg_tab_on">
+                        <TextView
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:gravity="center"
+                            android:text="🚪"
+                            android:textSize="16sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="💬"
-                android:textSize="17sp" />
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="消息"
-                android:textColor="@color/pri"
-                android:textSize="10sp" />
-        </LinearLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="退出登录"
+                                android:textColor="@color/danger"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="退出后下次需重新验证手机号"
+                                android:textColor="@color/sub"
+                                android:textSize="11sp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="›"
+                            android:textColor="@color/sub"
+                            android:textSize="16sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvMeFoot"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:gravity="center"
+                        android:lineSpacingExtra="4dp"
+                        android:textColor="@color/sub"
+                        android:textSize="11sp" />
+                </LinearLayout>
+            </ScrollView>
+        </FrameLayout>
 
         <LinearLayout
-            android:id="@+id/tabMe"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:id="@+id/imgBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:visibility="gone"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="4dp">
+
+            <ImageView
+                android:id="@+id/imgPreview"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:scaleType="centerCrop" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="👤"
-                android:textSize="17sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="我"
+                android:layout_weight="1"
+                android:layout_marginStart="10dp"
+                android:text="待发送图片（≤2400×1080）"
                 android:textColor="@color/sub"
-                android:textSize="10sp" />
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/btnClearImg"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                android:gravity="center"
+                android:text="✕"
+                android:textSize="15sp"
+                android:textColor="@color/danger"
+                android:background="?attr/selectableItemBackgroundBorderless" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/inputBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="bottom"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/btnImg"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:gravity="center"
+                android:text="🖼️"
+                android:textSize="19sp"
+                android:background="?attr/selectableItemBackgroundBorderless" />
+
+            <EditText
+                android:id="@+id/etInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_input"
+                android:hint="输入消息…(Enter 发送 / Shift+Enter 换行)"
+                android:textColorHint="@color/sub"
+                android:textColor="@color/text"
+                android:textSize="15sp"
+                android:padding="12dp"
+                android:minHeight="44dp"
+                android:maxLines="5"
+                android:inputType="textMultiLine|textCapSentences" />
+
+            <TextView
+                android:id="@+id/btnSend"
+                android:layout_width="72dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_send"
+                android:gravity="center"
+                android:text="发送"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tabbar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_tabbar"
+            android:padding="6dp">
+
+            <LinearLayout
+                android:id="@+id/tabMsg"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/bg_tab_on">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="💬"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="消息"
+                    android:textColor="@color/pri"
+                    android:textSize="10sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tabMe"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="👤"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="我"
+                    android:textColor="@color/sub"
+                    android:textSize="10sp" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+
+    <View
+        android:id="@+id/drawerMask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#AA000000"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/drawer"
+        android:layout_width="290dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:orientation="vertical"
+        android:background="@drawable/bg_drawer">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@drawable/bg_avatar_user"
+                android:gravity="center"
+                android:text="M"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="MT聊天助手"
+                android:textColor="@color/text"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#2A3A66" />
+
+        <ScrollView
+            android:id="@+id/convScroll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:id="@+id/convList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp" />
+        </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/btnNewConv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_primary_btn"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="＋  新建对话"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/btnTrans2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_ghost_btn"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="🌐  翻译"
+                android:textColor="@color/text"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/loginPane"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F20B1020">
+
+        <include
+            layout="@layout/dialog_login"
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </FrameLayout>
 </FrameLayout>

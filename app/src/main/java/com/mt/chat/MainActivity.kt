@@ -34,6 +34,7 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.io.ByteArrayOutputStream
 import java.util.Locale
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
@@ -52,6 +53,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tabMe: View
     private lateinit var inputBar: View
     private lateinit var tvMeModel: TextView
+    private lateinit var drawer: View
+    private lateinit var drawerMask: View
+    private lateinit var convList: LinearLayout
+    private lateinit var loginPane: View
+    private var sentCode: String = ""
+    private var codeMode: Boolean = true
     private lateinit var imgBar: LinearLayout
     private lateinit var imgPreview: ImageView
 
@@ -101,22 +108,14 @@ class MainActivity : AppCompatActivity() {
 
         tabMsg.setOnClickListener { switchTab(true) }
         tabMe.setOnClickListener { switchTab(false) }
-        findViewById<TextView>(R.id.meModel).setOnClickListener { openSettings() }
         findViewById<TextView>(R.id.meWx).setOnClickListener { openFeedback() }
         findViewById<TextView>(R.id.meSp).setOnClickListener { openSponsor() }
-        findViewById<TextView>(R.id.meAbout).setOnClickListener {
-            android.app.AlertDialog.Builder(this)
-                .setTitle("关于")
-                .setMessage("MT聊天助手 · 原生版 1.0\n\n纯 Kotlin 原生界面，无 WebView。\n接口：智谱 GLM / bigmodel.cn")
-                .setPositiveButton("知道了", null)
-                .show()
-        }
 
         adapter = ChatAdapter(this)
         rv.layoutManager = LinearLayoutManager(this)
         rv.adapter = adapter
 
-        findViewById<TextView>(R.id.btnMenu).setOnClickListener { openConvs() }
+        findViewById<TextView>(R.id.btnMenu).setOnClickListener { toggleDrawer() }
         findViewById<TextView>(R.id.btnSet).setOnClickListener { openSettings() }
         findViewById<TextView>(R.id.btnTrans).setOnClickListener { openTranslate() }
         findViewById<TextView>(R.id.btnImg).setOnClickListener { pickImage.launch("image/*") }
@@ -135,6 +134,7 @@ class MainActivity : AppCompatActivity() {
 
         ensureConv()
         refresh()
+        initExtra()
     }
 
     // ---------------- 会话 ----------------
@@ -474,7 +474,7 @@ class MainActivity : AppCompatActivity() {
             inputBar.visibility = View.GONE
             tabMe.setBackgroundResource(R.drawable.bg_tab_on)
             tabMsg.setBackgroundResource(0)
-            tvMeModel.text = "当前模型：" + Models.label(model)
+            updateMe()
         }
     }
 
@@ -491,6 +491,154 @@ class MainActivity : AppCompatActivity() {
                 intArrayOf(Color.WHITE, 0xFF36E7C9.toInt()),
                 null, Shader.TileMode.CLAMP
             )
+        }
+    }
+
+    private fun initExtra() {
+        drawer = findViewById(R.id.drawer)
+        drawerMask = findViewById(R.id.drawerMask)
+        convList = findViewById(R.id.convList)
+        loginPane = findViewById(R.id.loginPane)
+
+        drawer.post { drawer.translationX = -drawer.width.toFloat() }
+        drawerMask.setOnClickListener { closeDrawer() }
+        findViewById<TextView>(R.id.btnNewConv).setOnClickListener { newConvFromDrawer() }
+        findViewById<TextView>(R.id.btnTrans2).setOnClickListener { openTranslate() }
+
+        findViewById<TextView>(R.id.meAccount).setOnClickListener { toast("当前手机号：" + maskPhone(phone())) }
+        findViewById<TextView>(R.id.meInfo).setOnClickListener { toast("暂无新通知") }
+        findViewById<TextView>(R.id.meSetPwd).setOnClickListener { toast("原生版暂不支持设置密码") }
+        findViewById<TextView>(R.id.meLogout).setOnClickListener { logout() }
+
+        setupLogin()
+        if (phone().isEmpty()) loginPane.visibility = View.VISIBLE else loginPane.visibility = View.GONE
+        updateMe()
+    }
+
+    private fun phone(): String = prefs.getString("phone", "") ?: ""
+
+    private fun maskPhone(p: String): String =
+        if (p.length == 11) p.substring(0, 3) + "****" + p.substring(7) else "未绑定手机号"
+
+    private fun updateMe() {
+        try {
+            findViewById<TextView>(R.id.tvMePhone).text = maskPhone(phone())
+            findViewById<TextView>(R.id.meAccountDesc).text = "手机号：" + maskPhone(phone())
+            findViewById<TextView>(R.id.tvMeFoot).text =
+                "模型：" + Models.label(model) + " · 温度：" + String.format(Locale.US, "%.1f", temperature) +
+                "\n本地会话数：" + store.convs.size + " · 配置持久化：已开启"
+        } catch (e: Exception) { }
+    }
+
+    private fun setupLogin() {
+        val tabCode = loginPane.findViewById<TextView>(R.id.tabCode)
+        val tabPwd = loginPane.findViewById<TextView>(R.id.tabPwd)
+        val etPhone = loginPane.findViewById<EditText>(R.id.etPhone)
+        val codeRow = loginPane.findViewById<View>(R.id.codeRow)
+        val etPwd = loginPane.findViewById<EditText>(R.id.etPwd)
+        val etCode = loginPane.findViewById<EditText>(R.id.etCode)
+        val tvTip = loginPane.findViewById<TextView>(R.id.tvLoginTip)
+
+        fun paint() {
+            tabCode.setBackgroundResource(if (codeMode) R.drawable.bg_primary_btn else 0)
+            tabPwd.setBackgroundResource(if (codeMode) 0 else R.drawable.bg_primary_btn)
+            tabCode.setTextColor(if (codeMode) 0xFFFFFFFF.toInt() else 0xFF9AA3C7.toInt())
+            tabPwd.setTextColor(if (codeMode) 0xFF9AA3C7.toInt() else 0xFFFFFFFF.toInt())
+            codeRow.visibility = if (codeMode) View.VISIBLE else View.GONE
+            etPwd.visibility = if (codeMode) View.GONE else View.VISIBLE
+            tvTip.text = if (codeMode) "验证码登录" else "密码登录"
+        }
+        tabCode.setOnClickListener { codeMode = true; paint() }
+        tabPwd.setOnClickListener { codeMode = false; paint() }
+        paint()
+
+        loginPane.findViewById<TextView>(R.id.btnGetCode).setOnClickListener {
+            val p = etPhone.text.toString().trim()
+            if (!p.matches(Regex("^1\\d{10}$"))) { toast("请输入正确的 11 位手机号"); return@setOnClickListener }
+            sentCode = String.format(Locale.US, "%04d", Random.nextInt(10000))
+            toast("验证码：" + sentCode + "（模拟短信）")
+        }
+
+        loginPane.findViewById<TextView>(R.id.btnLogin).setOnClickListener {
+            val p = etPhone.text.toString().trim()
+            if (!p.matches(Regex("^1\\d{10}$"))) { toast("手机号格式错误"); return@setOnClickListener }
+            if (codeMode) {
+                val c = etCode.text.toString().trim()
+                if (sentCode.isEmpty()) { toast("请先点「获取验证码」"); return@setOnClickListener }
+                if (c != sentCode) { toast("验证码错误"); return@setOnClickListener }
+            } else {
+                if (etPwd.text.toString().trim().length < 6) { toast("密码至少 6 位"); return@setOnClickListener }
+            }
+            prefs.edit().putString("phone", p).apply()
+            loginPane.visibility = View.GONE
+            toast("登录成功")
+            updateMe()
+        }
+    }
+
+    private fun logout() {
+        prefs.edit().remove("phone").apply()
+        loginPane.visibility = View.VISIBLE
+        toast("已退出登录")
+    }
+
+    private fun toggleDrawer() {
+        if (drawer.translationX < -drawer.width / 2f) openDrawer() else closeDrawer()
+    }
+
+    private fun openDrawer() {
+        buildConvList()
+        drawerMask.visibility = View.VISIBLE
+        drawer.animate().translationX(0f).setDuration(220).start()
+    }
+
+    private fun closeDrawer() {
+        drawer.animate().translationX(-drawer.width.toFloat()).setDuration(200).start()
+        drawerMask.postDelayed({ drawerMask.visibility = View.GONE }, 200)
+    }
+
+    private fun newConvFromDrawer() {
+        val c = Conv(System.currentTimeMillis(), "新对话")
+        store.convs.add(0, c)
+        store.setCurrent(c.id)
+        store.save()
+        refresh()
+        closeDrawer()
+    }
+
+    private fun buildConvList() {
+        convList.removeAllViews()
+        if (store.convs.isEmpty()) {
+            val tv = TextView(this)
+            tv.text = "暂无对话\n点上方「新建对话」开始"
+            tv.setTextColor(0xFF9AA3C7.toInt())
+            tv.textSize = 12f
+            tv.gravity = android.view.Gravity.CENTER
+            tv.setPadding(0, dp(40), 0, dp(40))
+            convList.addView(tv)
+            return
+        }
+        for (c in store.convs) {
+            val row = layoutInflater.inflate(R.layout.item_conv, convList, false)
+            row.findViewById<TextView>(R.id.tvTitle).text = c.title
+            val last = c.msgs.lastOrNull()
+            row.findViewById<TextView>(R.id.tvDesc).text =
+                if (last == null) "空对话" else TimeFmt.rel(last.ts) + " · " + last.text.take(18)
+            row.setBackgroundResource(R.drawable.bg_row_conv)
+            val lp = LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            lp.bottomMargin = dp(6)
+            row.layoutParams = lp
+            row.setOnClickListener {
+                store.setCurrent(c.id); refresh(); updateMe(); closeDrawer()
+            }
+            row.findViewById<TextView>(R.id.btnDel).setOnClickListener {
+                store.convs.remove(c)
+                if (store.currentId == c.id) store.setCurrent(store.convs.firstOrNull()?.id ?: 0L)
+                store.save(); ensureConv(); refresh(); buildConvList(); updateMe()
+            }
+            convList.addView(row)
         }
     }
 

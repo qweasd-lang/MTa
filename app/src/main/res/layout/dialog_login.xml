@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="320dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_dialog"
+    android:padding="22dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="欢迎使用 MT 聊天助手"
+        android:textColor="@color/text"
+        android:textSize="19sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvLoginTip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="6dp"
+        android:text="验证码登录"
+        android:textColor="@color/sub"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_tab_seg"
+        android:padding="4dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tabCode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_primary_btn"
+            android:gravity="center"
+            android:padding="9dp"
+            android:text="验证码登录"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tabPwd"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="9dp"
+            android:text="密码登录"
+            android:textColor="@color/sub"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/etPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/bg_input"
+        android:hint="请输入手机号"
+        android:inputType="phone"
+        android:maxLength="11"
+        android:padding="12dp"
+        android:textColor="@color/text"
+        android:textColorHint="@color/sub"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:id="@+id/codeRow"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/etCode"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/bg_input"
+            android:hint="验证码"
+            android:inputType="number"
+            android:maxLength="4"
+            android:padding="12dp"
+            android:textColor="@color/text"
+            android:textColorHint="@color/sub"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/btnGetCode"
+            android:layout_width="104dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/bg_ghost_btn"
+            android:gravity="center"
+            android:text="获取验证码"
+            android:textColor="@color/text"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/etPwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_input"
+        android:hint="请输入密码"
+        android:inputType="textPassword"
+        android:padding="12dp"
+        android:textColor="@color/text"
+        android:textColorHint="@color/sub"
+        android:textSize="14sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/bg_primary_btn"
+        android:gravity="center"
+        android:padding="13dp"
+        android:text="进入聊天"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvLoginHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="* 点击「获取验证码」，将收到随机动态验证码"
+        android:textColor="@color/sub"
+        android:textSize="11sp" />
+</LinearLayout>
