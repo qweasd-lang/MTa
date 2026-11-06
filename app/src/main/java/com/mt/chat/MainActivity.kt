@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tabMsg: View
     private lateinit var tabMe: View
     private lateinit var inputBar: View
-    private lateinit var tvMeModel: TextView
     private lateinit var drawer: View
     private lateinit var drawerMask: View
     private lateinit var convList: LinearLayout
@@ -101,7 +100,6 @@ class MainActivity : AppCompatActivity() {
         tabMsg = findViewById(R.id.tabMsg)
         tabMe = findViewById(R.id.tabMe)
         inputBar = findViewById(R.id.inputBar)
-        tvMeModel = findViewById(R.id.tvMeModel)
 
         applyGradient(findViewById(R.id.tvTitle))
         applyGradient(findViewById(R.id.tvWelcomeTitle))
