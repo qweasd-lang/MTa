@@ -5,6 +5,8 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Color
+import android.graphics.LinearGradient
+import android.graphics.Shader
 import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
@@ -43,7 +45,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: ChatAdapter
     private lateinit var store: ChatStore
     private lateinit var etInput: EditText
-    private lateinit var sendBtn: MaterialButton
+    private lateinit var sendBtn: TextView
+    private lateinit var welcomePane: View
+    private lateinit var mePane: View
+    private lateinit var tabMsg: View
+    private lateinit var tabMe: View
+    private lateinit var inputBar: View
+    private lateinit var tvMeModel: TextView
     private lateinit var imgBar: LinearLayout
     private lateinit var imgPreview: ImageView
 
@@ -80,6 +88,29 @@ class MainActivity : AppCompatActivity() {
         sendBtn = findViewById(R.id.btnSend)
         imgBar = findViewById(R.id.imgBar)
         imgPreview = findViewById(R.id.imgPreview)
+
+        welcomePane = findViewById(R.id.welcomePane)
+        mePane = findViewById(R.id.mePane)
+        tabMsg = findViewById(R.id.tabMsg)
+        tabMe = findViewById(R.id.tabMe)
+        inputBar = findViewById(R.id.inputBar)
+        tvMeModel = findViewById(R.id.tvMeModel)
+
+        applyGradient(findViewById(R.id.tvTitle))
+        applyGradient(findViewById(R.id.tvWelcomeTitle))
+
+        tabMsg.setOnClickListener { switchTab(true) }
+        tabMe.setOnClickListener { switchTab(false) }
+        findViewById<TextView>(R.id.meModel).setOnClickListener { openSettings() }
+        findViewById<TextView>(R.id.meWx).setOnClickListener { openFeedback() }
+        findViewById<TextView>(R.id.meSp).setOnClickListener { openSponsor() }
+        findViewById<TextView>(R.id.meAbout).setOnClickListener {
+            android.app.AlertDialog.Builder(this)
+                .setTitle("关于")
+                .setMessage("MT聊天助手 · 原生版 1.0\n\n纯 Kotlin 原生界面，无 WebView。\n接口：智谱 GLM / bigmodel.cn")
+                .setPositiveButton("知道了", null)
+                .show()
+        }
 
         adapter = ChatAdapter(this)
         rv.layoutManager = LinearLayoutManager(this)
@@ -119,6 +150,7 @@ class MainActivity : AppCompatActivity() {
         adapter.msgs = c.msgs.toList()
         adapter.thinking = thinking
         adapter.refresh()
+        welcomePane.visibility = if (c.msgs.isEmpty()) View.VISIBLE else View.GONE
         if (adapter.itemCount > 0) rv.scrollToPosition(adapter.itemCount - 1)
     }
 
@@ -209,6 +241,7 @@ class MainActivity : AppCompatActivity() {
         imgBar.visibility = View.GONE
         store.save()
         thinking = true
+        setSendState()
         refresh()
 
         val sendModel = if (img != null && !Models.find(model).vision) "glm-4.6" else model
@@ -217,6 +250,7 @@ class MainActivity : AppCompatActivity() {
         ZhipuClient.chat(sendModel, temperature, buildMessages(c)) { ok, payload ->
             ui.post {
                 thinking = false
+                setSendState()
                 val answer = Msg("assistant", if (ok) payload else "出错了：" + payload, System.currentTimeMillis())
                 c.msgs.add(answer)
                 store.save()
@@ -419,6 +453,41 @@ class MainActivity : AppCompatActivity() {
     }
 
     // ---------------- 工具 ----------------
+
+    private fun switchTab(toMsg: Boolean) {
+        if (toMsg) {
+            mePane.visibility = View.GONE
+            rv.visibility = View.VISIBLE
+            inputBar.visibility = View.VISIBLE
+            tabMsg.setBackgroundResource(R.drawable.bg_tab_on)
+            tabMe.setBackgroundResource(0)
+            refresh()
+        } else {
+            mePane.visibility = View.VISIBLE
+            rv.visibility = View.GONE
+            welcomePane.visibility = View.GONE
+            inputBar.visibility = View.GONE
+            tabMe.setBackgroundResource(R.drawable.bg_tab_on)
+            tabMsg.setBackgroundResource(0)
+            tvMeModel.text = "当前模型：" + Models.label(model)
+        }
+    }
+
+    private fun setSendState() {
+        sendBtn.setBackgroundResource(if (thinking) R.drawable.bg_send_off else R.drawable.bg_send)
+        sendBtn.text = if (thinking) "回复中" else "发送"
+    }
+
+    private fun applyGradient(tv: TextView) {
+        tv.post {
+            val w = tv.paint.measureText(tv.text.toString()).toInt().coerceAtLeast(1)
+            tv.paint.shader = LinearGradient(
+                0f, 0f, w.toFloat(), tv.textSize,
+                intArrayOf(Color.WHITE, 0xFF36E7C9.toInt()),
+                null, Shader.TileMode.CLAMP
+            )
+        }
+    }
 
     private fun dp(v: Int): Int = (v * resources.displayMetrics.density).toInt()
 
