@@ -106,8 +106,8 @@ class MainActivity : AppCompatActivity() {
 
         tabMsg.setOnClickListener { switchTab(true) }
         tabMe.setOnClickListener { switchTab(false) }
-        findViewById<TextView>(R.id.meWx).setOnClickListener { openFeedback() }
-        findViewById<TextView>(R.id.meSp).setOnClickListener { openSponsor() }
+        findViewById<View>(R.id.meWx).setOnClickListener { openFeedback() }
+        findViewById<View>(R.id.meSp).setOnClickListener { openSponsor() }
 
         adapter = ChatAdapter(this)
         rv.layoutManager = LinearLayoutManager(this)
@@ -503,10 +503,10 @@ class MainActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.btnNewConv).setOnClickListener { newConvFromDrawer() }
         findViewById<TextView>(R.id.btnTrans2).setOnClickListener { openTranslate() }
 
-        findViewById<TextView>(R.id.meAccount).setOnClickListener { toast("当前手机号：" + maskPhone(phone())) }
-        findViewById<TextView>(R.id.meInfo).setOnClickListener { toast("暂无新通知") }
-        findViewById<TextView>(R.id.meSetPwd).setOnClickListener { toast("原生版暂不支持设置密码") }
-        findViewById<TextView>(R.id.meLogout).setOnClickListener { logout() }
+        findViewById<View>(R.id.meAccount).setOnClickListener { toast("当前手机号：" + maskPhone(phone())) }
+        findViewById<View>(R.id.meInfo).setOnClickListener { toast("暂无新通知") }
+        findViewById<View>(R.id.meSetPwd).setOnClickListener { toast("原生版暂不支持设置密码") }
+        findViewById<View>(R.id.meLogout).setOnClickListener { logout() }
 
         setupLogin()
         if (phone().isEmpty()) loginPane.visibility = View.VISIBLE else loginPane.visibility = View.GONE
