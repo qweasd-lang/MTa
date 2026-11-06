@@ -142,7 +142,6 @@ class MainActivity : AppCompatActivity() {
 
         val newBtn = MaterialButton(this).apply {
             text = "＋ 新建对话"
-            isTextAllCaps = false
             setOnClickListener {
                 val c = Conv(System.currentTimeMillis(), "新对话")
                 store.convs.add(0, c)
@@ -177,11 +176,9 @@ class MainActivity : AppCompatActivity() {
 
         val fbRow = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
         val fbBtn = MaterialButton(this).apply {
-            text = "💬 加微信反馈"; isTextAllCaps = false
             setOnClickListener { openFeedback() }
         }
         val spBtn = MaterialButton(this).apply {
-            text = "☕ 赞助支持"; isTextAllCaps = false
             setOnClickListener { openSponsor() }
         }
         fbRow.addView(fbBtn, LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f).apply { marginEnd = dp(8) })
