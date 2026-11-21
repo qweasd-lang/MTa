@@ -11,8 +11,8 @@ android {
         applicationId = "MT.LTZS.com"
         minSdk = 21
         targetSdk = 34
-        versionCode = 100000
-        versionName = "3.3.1"
+        versionCode = 406001
+        versionName = "4.6.1"
     }
 
     buildTypes {

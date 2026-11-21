@@ -150,7 +150,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
-                            android:text="MT 聊天助手 · 版本 3.3.1"
+                            android:text="MT 聊天助手 · 版本 4.6.1"
                             android:textColor="@color/sub"
                             android:textSize="11sp" />
                     </LinearLayout>
