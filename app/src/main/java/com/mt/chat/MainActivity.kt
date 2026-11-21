@@ -60,9 +60,12 @@ class MainActivity : AppCompatActivity() {
     private var codeMode: Boolean = true
     private lateinit var imgBar: LinearLayout
     private lateinit var imgPreview: ImageView
+    private lateinit var meAvatar: ImageView
+    private lateinit var drawerAvatar: ImageView
 
     private val ui = Handler(Looper.getMainLooper())
     private var pendingImage: String? = null
+    private var pendingAvatar: Int = Avatars.USER
     private var thinking = false
     private var model: String = Models.DEFAULT
     private var temperature: Double = 0.7
@@ -76,6 +79,16 @@ class MainActivity : AppCompatActivity() {
         pendingImage = b64
         showPreview(b64)
         toast("已选择图片，发送时附带")
+    }
+
+    private val pickAvatar = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        if (uri == null) return@registerForActivityResult
+        if (Avatars.save(this, pendingAvatar, uri)) {
+            toast("头像已更新")
+            refreshAvatars()
+        } else {
+            toast("头像设置失败")
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -383,6 +396,66 @@ class MainActivity : AppCompatActivity() {
 
     private fun openSponsor() = openQr(R.drawable.sponsor, "赞助支持", "扫码赞赏，支持开发者继续维护与更新\n感谢每一份鼓励 ❤️")
 
+    // ---------------- 头像 ----------------
+
+    private fun refreshAvatars() {
+        Avatars.load(this, meAvatar, Avatars.USER)
+        Avatars.load(this, drawerAvatar, Avatars.AI)
+        adapter.refresh()
+    }
+
+    private fun openAvatarDialog(which: Int) {
+        val title = if (which == Avatars.USER) "更换我的头像" else "更换 AI 头像"
+        val dlg = Dialog(this)
+        dlg.requestWindowFeature(Window.FEATURE_NO_TITLE)
+
+        val root = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            setBackgroundColor(ContextCompat.getColor(this@MainActivity, R.color.panel))
+            setPadding(dp(20), dp(20), dp(20), dp(20))
+        }
+
+        val tv = TextView(this).apply {
+            text = title
+            setTextColor(ContextCompat.getColor(this@MainActivity, R.color.text))
+            textSize = 16f
+            setTypeface(typeface, android.graphics.Typeface.BOLD)
+        }
+        root.addView(tv)
+
+        val pickBtn = MaterialButton(this).apply {
+            text = "从相册选择"
+            setOnClickListener {
+                dlg.dismiss()
+                pendingAvatar = which
+                pickAvatar.launch("image/*")
+            }
+        }
+        root.addView(pickBtn, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { topMargin = dp(12) })
+
+        val resetBtn = MaterialButton(this).apply {
+            text = "恢复默认头像"
+            setOnClickListener {
+                Avatars.clear(this@MainActivity, which)
+                refreshAvatars()
+                dlg.dismiss()
+                toast("已恢复默认头像")
+            }
+        }
+        root.addView(resetBtn, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { topMargin = dp(8) })
+
+        val cancelBtn = MaterialButton(this).apply {
+            text = "取消"
+            setOnClickListener { dlg.dismiss() }
+        }
+        root.addView(cancelBtn, LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT).apply { topMargin = dp(8) })
+
+        dlg.setContentView(root)
+        dlg.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dlg.window?.setLayout((resources.displayMetrics.widthPixels * 0.82f).toInt(), ViewGroup.LayoutParams.WRAP_CONTENT)
+        dlg.show()
+    }
+
     // ---------------- 翻译 ----------------
 
     private fun openTranslate() {
@@ -497,11 +570,16 @@ class MainActivity : AppCompatActivity() {
         drawerMask = findViewById(R.id.drawerMask)
         convList = findViewById(R.id.convList)
         loginPane = findViewById(R.id.loginPane)
+        meAvatar = findViewById(R.id.meAvatar)
+        drawerAvatar = findViewById(R.id.drawerAvatar)
 
         drawer.post { drawer.translationX = -drawer.width.toFloat() }
         drawerMask.setOnClickListener { closeDrawer() }
         findViewById<TextView>(R.id.btnNewConv).setOnClickListener { newConvFromDrawer() }
         findViewById<TextView>(R.id.btnTrans2).setOnClickListener { openTranslate() }
+
+        meAvatar.setOnClickListener { openAvatarDialog(Avatars.USER) }
+        findViewById<View>(R.id.meAiAvatar).setOnClickListener { openAvatarDialog(Avatars.AI) }
 
         findViewById<View>(R.id.meAccount).setOnClickListener { toast("当前手机号：" + maskPhone(phone())) }
         findViewById<View>(R.id.meInfo).setOnClickListener { toast("暂无新通知") }
@@ -511,6 +589,7 @@ class MainActivity : AppCompatActivity() {
         setupLogin()
         if (phone().isEmpty()) loginPane.visibility = View.VISIBLE else loginPane.visibility = View.GONE
         updateMe()
+        refreshAvatars()
     }
 
     private fun phone(): String = prefs.getString("phone", "") ?: ""

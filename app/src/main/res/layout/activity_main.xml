@@ -131,15 +131,11 @@
                         android:paddingTop="24dp"
                         android:paddingBottom="6dp">
 
-                        <TextView
+                        <ImageView
+                            android:id="@+id/meAvatar"
                             android:layout_width="64dp"
                             android:layout_height="64dp"
-                            android:background="@drawable/bg_avatar_user"
-                            android:gravity="center"
-                            android:text="我"
-                            android:textColor="#FFFFFF"
-                            android:textSize="24sp"
-                            android:textStyle="bold" />
+                            android:scaleType="centerCrop" />
 
                         <TextView
                             android:id="@+id/tvMePhone"
@@ -159,6 +155,53 @@
                             android:textSize="11sp" />
                     </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/meAiAvatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_me_item"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="14dp">
+
+                    <TextView
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:gravity="center"
+                        android:text="🤖"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="AI 头像"
+                            android:textColor="@color/text"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="更换 AI 助手在对话中的头像"
+                            android:textColor="@color/sub"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="›"
+                        android:textColor="@color/sub"
+                        android:textSize="16sp" />
+                </LinearLayout>
                 <LinearLayout
                     android:id="@+id/meAccount"
                     android:layout_width="match_parent"
@@ -621,15 +664,11 @@
             android:gravity="center_vertical"
             android:padding="16dp">
 
-            <TextView
+            <ImageView
+                android:id="@+id/drawerAvatar"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
-                android:background="@drawable/bg_avatar_user"
-                android:gravity="center"
-                android:text="M"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:scaleType="centerCrop" />
 
             <TextView
                 android:layout_width="wrap_content"

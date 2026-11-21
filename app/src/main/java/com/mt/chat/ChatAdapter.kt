@@ -67,6 +67,7 @@ class ChatAdapter(private val host: MainActivity) : RecyclerView.Adapter<Recycle
         val bubble: TextView = v.findViewById(R.id.bubble)
         val time: TextView = v.findViewById(R.id.time)
         val img: ImageView = v.findViewById(R.id.img)
+        val avatar: ImageView = v.findViewById(R.id.avatar)
 
         fun bind(m: Msg) {
             bubble.text = m.text
@@ -78,16 +79,19 @@ class ChatAdapter(private val host: MainActivity) : RecyclerView.Adapter<Recycle
             } else {
                 img.visibility = View.GONE
             }
+            Avatars.load(host, avatar, Avatars.USER)
         }
     }
 
     inner class AiVH(v: View) : RecyclerView.ViewHolder(v) {
         val bubble: TextView = v.findViewById(R.id.bubble)
         val time: TextView = v.findViewById(R.id.time)
+        val avatar: ImageView = v.findViewById(R.id.avatar)
 
         fun bind(m: Msg) {
             bubble.text = m.text
             time.text = TimeFmt.rel(m.ts)
+            Avatars.load(host, avatar, Avatars.AI)
         }
     }
 

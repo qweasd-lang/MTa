@@ -43,15 +43,10 @@
             android:textSize="10sp" />
     </LinearLayout>
 
-    <TextView
+    <ImageView
         android:id="@+id/avatar"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginStart="8dp"
-        android:background="@drawable/bg_avatar_user"
-        android:gravity="center"
-        android:text="我"
-        android:textColor="#FFFFFF"
-        android:textSize="12sp"
-        android:textStyle="bold" />
+        android:scaleType="centerCrop" />
 </LinearLayout>
